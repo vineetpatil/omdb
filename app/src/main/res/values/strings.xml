@@ -2,4 +2,7 @@
     <string name="app_name">Movie Search</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="search_tab">Search</string>
+    <string name="favorites_tab">Favorites</string>
+    <string name="search_text">Search Movie, TV series or episodes by title</string>
 </resources>
