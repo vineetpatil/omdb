@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/poster"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="72dp"
+        android:layout_height="72dp" />
+
+    <ToggleButton
+        android:id="@+id/favorite_button"
+        android:layout_below="@id/poster"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:textSize="8sp"
+        android:background="@drawable/toggle_button_selector"
+        android:textOff="@string/unfavorite"
+        android:textOn="@string/favorite"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:lines="1"
+        android:layout_toRightOf="@id/poster"
+        android:textSize="16sp"
+        android:hint="Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/director"
+        android:lines="1"
+        android:layout_toRightOf="@id/poster"
+        android:layout_below="@id/title"
+        android:textSize="16sp"
+        android:hint="Director (Year)"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/plot"
+        android:lines="3"
+        android:layout_toRightOf="@id/poster"
+        android:layout_below="@id/director"
+        android:textSize="16sp"
+        android:hint="Plot Summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

@@ -5,4 +5,6 @@
     <string name="search_tab">Search</string>
     <string name="favorites_tab">Favorites</string>
     <string name="search_text">Search Movie, TV series or episodes by title</string>
+    <string name="favorite">Favorite</string>
+    <string name="unfavorite">Not Favorite</string>
 </resources>

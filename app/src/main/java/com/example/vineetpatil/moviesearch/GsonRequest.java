@@ -1,5 +1,7 @@
 package com.example.vineetpatil.moviesearch;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -20,6 +22,8 @@ import java.util.Map;
  * Reference URL : https://gist.github.com/ficusk/5474673
  */
 public class GsonRequest<T> extends Request<T> {
+    private static final String TAG = GsonRequest.class.getName();
+
     private final Gson gson = new Gson();
     private final Class<T> clazz;
     private final Map<String, String> headers;
@@ -55,6 +59,7 @@ public class GsonRequest<T> extends Request<T> {
         try {
             String json = new String(
                     response.data, HttpHeaderParser.parseCharset(response.headers));
+            Log.d(TAG, "parseNetworkResponse : " + json);
             return Response.success(
                     gson.fromJson(json, clazz), HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
