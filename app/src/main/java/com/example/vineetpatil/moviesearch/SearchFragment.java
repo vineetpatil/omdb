@@ -16,6 +16,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import java.util.ArrayList;
+
 public class SearchFragment extends Fragment {
     private static final String TAG = SearchFragment.class.getName();
 
@@ -26,23 +28,28 @@ public class SearchFragment extends Fragment {
     private RequestQueue requestQueue;
 
     private SearchResultAdapter searchResultAdapter;
+
     private int currentPage = 0;
+    private boolean loadingData = false;
     private String searchQuery = "";
+
+    private ListView listView;
+    private EditText searchText;
+    private Button searchButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.searchResultAdapter = new SearchResultAdapter(getContext());
+        this.searchResultAdapter = new SearchResultAdapter(getContext(), new ArrayList<TitleRecord>());
 
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
-        final EditText searchText = (EditText) rootView.findViewById(R.id.search_bar);
-        Button searchButton = (Button) rootView.findViewById(R.id.search_button);
-        ListView listView = (ListView) rootView.findViewById(R.id.list_view);
-        listView.setAdapter(searchResultAdapter);
-        searchResultAdapter.notifyDataSetChanged();
+        this.searchText = (EditText) rootView.findViewById(R.id.search_bar);
+        this.searchButton = (Button) rootView.findViewById(R.id.search_button);
+        this.listView = (ListView) rootView.findViewById(R.id.list_view);
+        this.listView.setAdapter(searchResultAdapter);
         currentPage = 0;  // The page number of search results from OMDB
 
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+        this.listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 // NO-OP
@@ -50,15 +57,17 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                // TODO : fetch new items as required.
-                if (totalItemCount - firstVisibleItem < 5) {
-                    // We are near end so fetch more items
+                // fetch new items as required.
+                Log.d(TAG, "onScroll() firstVisibleItem : " + firstVisibleItem + "   visibleItemCount : " + visibleItemCount + "   totalItemCount : " + totalItemCount);
+                if (listView.getLastVisiblePosition() == searchResultAdapter.getCount() - 1 && !loadingData) {
+                    // We are at the very end; fetch more items
+                    Log.d(TAG, "onScroll() listView.getLastVisiblePosition() : " + listView.getLastVisiblePosition() + "   searchResultAdapter.getCount() : " + searchResultAdapter.getCount() + "   loadingData : " + loadingData);
                     search(searchQuery, ++currentPage);
                 }
             }
         });
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        this.searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 searchQuery = searchText.getText().toString();
@@ -82,28 +91,31 @@ public class SearchFragment extends Fragment {
     private void search(String searchQuery, int pageNumber) {
         //  query OMDB for search results
         searchResultAdapter.clear();
-        searchResultAdapter.notifyDataSetChanged();
         requestQueue.cancelAll(TAG);
         String url = String.format(searchUrl, searchQuery, pageNumber);
         Log.d(TAG, "search : url - " + url);
         GsonRequest<SearchResponse> searchResponseGsonRequest = new GsonRequest<>(url, SearchResponse.class,
-                null, new SearchResultsListener(requestQueue, detailsUrl, searchResultAdapter), new SearchResultsErrorListener());
+                null, new SearchResultsListener(), new SearchResultsErrorListener());
         searchResponseGsonRequest.setTag(TAG);
         requestQueue.add(searchResponseGsonRequest);
+        loadingData = true;
     }
 
-    static class SearchResultsListener implements Response.Listener<SearchResponse> {
+    private void getDetails(String imdbID) {
+        // query OMDB to get details of this title
+        String url = String.format(detailsUrl, imdbID);
+        Log.d(TAG, "getDetails : url - " + url);
+        GsonRequest<TitleRecord> titleRecordGsonRequest = new GsonRequest<>(url, TitleRecord.class,
+                null, new TitleRecordListener(), new TitleRecordErrorListener());
+        // TODO: Should I add TAG to this request so that this can be cancelled when not required?
+        requestQueue.add(titleRecordGsonRequest);
+    }
 
-        private final RequestQueue requestQueue;
-        private final String detailsUrl;
-        private final SearchResultAdapter searchResultAdapter;
+    private synchronized void addTitleRecord(final TitleRecord titleRecord) {
+        this.searchResultAdapter.add(titleRecord);
+    }
 
-        private SearchResultsListener(RequestQueue requestQueue, String detailsUrl, SearchResultAdapter searchResultAdapter) {
-            this.requestQueue = requestQueue;
-            this.detailsUrl = detailsUrl;
-            this.searchResultAdapter = searchResultAdapter;
-        }
-
+    private class SearchResultsListener implements Response.Listener<SearchResponse> {
         @Override
         public void onResponse(SearchResponse response) {
             Log.d(TAG, "SearchResultsListener - onResponse : " + response.toString());
@@ -112,43 +124,27 @@ public class SearchFragment extends Fragment {
                     getDetails(searchResult.getImdbID());
                 }
             }
-        }
-
-        private void getDetails(String imdbID) {
-            // query OMDB to get details of this title
-            String url = String.format(detailsUrl, imdbID);
-            Log.d(TAG, "getDetails : url - " + url);
-            GsonRequest<TitleRecord> titleRecordGsonRequest = new GsonRequest<>(url, TitleRecord.class,
-                    null, new TitleRecordListener(searchResultAdapter), new TitleRecordErrorListener());
-            requestQueue.add(titleRecordGsonRequest);
+            SearchFragment.this.loadingData = false;
         }
     }
 
-    static class SearchResultsErrorListener implements Response.ErrorListener {
-
+    private class SearchResultsErrorListener implements Response.ErrorListener {
         @Override
         public void onErrorResponse(VolleyError error) {
             Log.e(TAG, "Error getting results from OMDB ", error.fillInStackTrace());
+            SearchFragment.this.loadingData = false;
         }
     }
 
-    static class TitleRecordListener implements Response.Listener<TitleRecord> {
-        private final SearchResultAdapter searchResultAdapter;
-
-        TitleRecordListener(SearchResultAdapter searchResultAdapter) {
-            this.searchResultAdapter = searchResultAdapter;
-        }
-
+    private class TitleRecordListener implements Response.Listener<TitleRecord> {
         @Override
         public void onResponse(TitleRecord response) {
             Log.d(TAG, "TitleRecordListener - onResponse : " + response.toString());
-            searchResultAdapter.add(response);
-            searchResultAdapter.notifyDataSetChanged();
+            addTitleRecord(response);
         }
     }
 
-    static class TitleRecordErrorListener implements Response.ErrorListener {
-
+    private class TitleRecordErrorListener implements Response.ErrorListener {
         @Override
         public void onErrorResponse(VolleyError error) {
             Log.e(TAG, "Error getting title detail results from OMDB ", error.fillInStackTrace());

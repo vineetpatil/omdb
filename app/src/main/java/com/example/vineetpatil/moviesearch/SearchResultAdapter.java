@@ -15,8 +15,6 @@ import com.android.volley.toolbox.NetworkImageView;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class SearchResultAdapter extends ArrayAdapter<TitleRecord> {
@@ -26,58 +24,11 @@ public class SearchResultAdapter extends ArrayAdapter<TitleRecord> {
     private final List<TitleRecord> titleRecords;
     private final ImageLoader imageLoader;
 
-    public SearchResultAdapter(Context context) {
-        super(context, R.layout.list_item);
+    public SearchResultAdapter(Context context, List<TitleRecord> titleRecords) {
+        super(context, R.layout.list_item, titleRecords);
         this.context = context;
-        this.titleRecords = new ArrayList<>();
+        this.titleRecords = titleRecords;
         this.imageLoader = VolleySingleton.getInstance(context).getImageLoader();
-    }
-
-    @Override
-    public void add(TitleRecord object) {
-        titleRecords.add(object);
-    }
-
-    @Override
-    public void addAll(Collection<? extends TitleRecord> collection) {
-        titleRecords.addAll(collection);
-    }
-
-    @Override
-    public void addAll(TitleRecord... items) {
-        for (TitleRecord record : items) {
-            titleRecords.add(record);
-        }
-    }
-
-    @Override
-    public void insert(TitleRecord object, int index) {
-        titleRecords.add(index, object);
-    }
-
-    @Override
-    public void remove(TitleRecord object) {
-        titleRecords.remove(object);
-    }
-
-    @Override
-    public void clear() {
-        titleRecords.clear();
-    }
-
-    @Override
-    public int getCount() {
-        return titleRecords.size();
-    }
-
-    @Override
-    public TitleRecord getItem(int position) {
-        return titleRecords.get(position);
-    }
-
-    @Override
-    public int getPosition(TitleRecord item) {
-        return titleRecords.indexOf(item);
     }
 
     @Override
@@ -120,7 +71,6 @@ public class SearchResultAdapter extends ArrayAdapter<TitleRecord> {
                 url = new URL(urlString);
                 return (!TextUtils.isEmpty(url.getHost()) && !TextUtils.isEmpty(url.getPath()));
             } catch (MalformedURLException e) {
-                e.printStackTrace();
                 return false;
             }
         }

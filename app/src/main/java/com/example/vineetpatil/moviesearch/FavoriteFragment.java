@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 public class FavoriteFragment extends Fragment {
 
     @Override
@@ -18,7 +20,7 @@ public class FavoriteFragment extends Fragment {
         EditText searchText = (EditText) rootView.findViewById(R.id.search_bar);
         Button searchButton = (Button) rootView.findViewById(R.id.search_button);
         ListView listView = (ListView) rootView.findViewById(R.id.list_view);
-        listView.setAdapter(new SearchResultAdapter(getContext()));
+        listView.setAdapter(new SearchResultAdapter(getContext(), new ArrayList<TitleRecord>()));
 
         return rootView;
     }

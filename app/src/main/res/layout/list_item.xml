@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+                android:layout_margin="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/poster"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:padding="4dp"
         android:layout_width="72dp"
         android:layout_height="72dp" />
 
@@ -16,7 +19,9 @@
         android:layout_marginLeft="16dp"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:textSize="8sp"
+        android:textSize="6sp"
+        android:textColor="@color/material_blue_grey_800"
+        android:padding="3dp"
         android:background="@drawable/toggle_button_selector"
         android:textOff="@string/unfavorite"
         android:textOn="@string/favorite"/>
@@ -27,6 +32,7 @@
         android:layout_toRightOf="@id/poster"
         android:textSize="16sp"
         android:hint="Title"
+        android:maxWidth="240dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -37,6 +43,7 @@
         android:layout_below="@id/title"
         android:textSize="16sp"
         android:hint="Director (Year)"
+        android:maxWidth="240dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -47,6 +54,8 @@
         android:layout_below="@id/director"
         android:textSize="16sp"
         android:hint="Plot Summary"
+        android:ellipsize="end"
+        android:maxWidth="240dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
