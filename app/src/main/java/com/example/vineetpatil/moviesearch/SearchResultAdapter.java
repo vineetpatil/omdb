@@ -21,13 +21,11 @@ public class SearchResultAdapter extends ArrayAdapter<TitleRecord> {
     private static final String TAG = SearchResultAdapter.class.getName();
 
     private final Context context;
-    private final List<TitleRecord> titleRecords;
     private final ImageLoader imageLoader;
 
     public SearchResultAdapter(Context context, List<TitleRecord> titleRecords) {
         super(context, R.layout.list_item, titleRecords);
         this.context = context;
-        this.titleRecords = titleRecords;
         this.imageLoader = VolleySingleton.getInstance(context).getImageLoader();
     }
 
@@ -50,10 +48,9 @@ public class SearchResultAdapter extends ArrayAdapter<TitleRecord> {
         }
 
         // fill data
-        TitleRecord titleRecord = titleRecords.get(position);
+        TitleRecord titleRecord = getItem(position);
         ViewHolder holder = (ViewHolder) rowView.getTag();
         if (isUrlValid(titleRecord.getPoster())) {
-            Log.d(TAG, "Downloading image at url " + titleRecord.getPoster());
             holder.poster.setImageUrl(titleRecord.getPoster(), imageLoader);
         }
         holder.favoriteButton.setChecked(false);  // by default not favorite TODO: implementation of favorites

@@ -58,10 +58,8 @@ public class SearchFragment extends Fragment {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 // fetch new items as required.
-                Log.d(TAG, "onScroll() firstVisibleItem : " + firstVisibleItem + "   visibleItemCount : " + visibleItemCount + "   totalItemCount : " + totalItemCount);
                 if (listView.getLastVisiblePosition() == searchResultAdapter.getCount() - 1 && !loadingData) {
                     // We are at the very end; fetch more items
-                    Log.d(TAG, "onScroll() listView.getLastVisiblePosition() : " + listView.getLastVisiblePosition() + "   searchResultAdapter.getCount() : " + searchResultAdapter.getCount() + "   loadingData : " + loadingData);
                     search(searchQuery, ++currentPage);
                 }
             }
@@ -73,6 +71,9 @@ public class SearchFragment extends Fragment {
                 searchQuery = searchText.getText().toString();
                 if (searchQuery != null && searchQuery.length() > 0 && !searchQuery.equals(searchTextHint)) {
                     currentPage = 1;
+                    searchResultAdapter.clear();
+                    requestQueue.cancelAll(TAG);
+                    loadingData = false;
                     search(searchQuery, 1);
                 }
             }
@@ -90,10 +91,7 @@ public class SearchFragment extends Fragment {
 
     private void search(String searchQuery, int pageNumber) {
         //  query OMDB for search results
-        searchResultAdapter.clear();
-        requestQueue.cancelAll(TAG);
         String url = String.format(searchUrl, searchQuery, pageNumber);
-        Log.d(TAG, "search : url - " + url);
         GsonRequest<SearchResponse> searchResponseGsonRequest = new GsonRequest<>(url, SearchResponse.class,
                 null, new SearchResultsListener(), new SearchResultsErrorListener());
         searchResponseGsonRequest.setTag(TAG);
@@ -104,10 +102,10 @@ public class SearchFragment extends Fragment {
     private void getDetails(String imdbID) {
         // query OMDB to get details of this title
         String url = String.format(detailsUrl, imdbID);
-        Log.d(TAG, "getDetails : url - " + url);
         GsonRequest<TitleRecord> titleRecordGsonRequest = new GsonRequest<>(url, TitleRecord.class,
                 null, new TitleRecordListener(), new TitleRecordErrorListener());
-        // TODO: Should I add TAG to this request so that this can be cancelled when not required?
+        // Set TAG to this request so that this can be cancelled when not required.
+        titleRecordGsonRequest.setTag(TAG);
         requestQueue.add(titleRecordGsonRequest);
     }
 
@@ -118,7 +116,7 @@ public class SearchFragment extends Fragment {
     private class SearchResultsListener implements Response.Listener<SearchResponse> {
         @Override
         public void onResponse(SearchResponse response) {
-            Log.d(TAG, "SearchResultsListener - onResponse : " + response.toString());
+            //Log.d(TAG, "SearchResultsListener - onResponse : " + response.toString());
             if (response.getTotalResults() > 0 && response.getSearch() != null) {
                 for (SearchResponse.SearchResult searchResult : response.getSearch()) {
                     getDetails(searchResult.getImdbID());
@@ -139,7 +137,7 @@ public class SearchFragment extends Fragment {
     private class TitleRecordListener implements Response.Listener<TitleRecord> {
         @Override
         public void onResponse(TitleRecord response) {
-            Log.d(TAG, "TitleRecordListener - onResponse : " + response.toString());
+            //Log.d(TAG, "TitleRecordListener - onResponse : " + response.toString());
             addTitleRecord(response);
         }
     }
