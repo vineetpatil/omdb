@@ -154,4 +154,45 @@ public class TitleRecord {
     public static TitleRecord fromJson(String json) {
         return gson.fromJson(json, TitleRecord.class);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TitleRecord that = (TitleRecord) o;
+
+        if (!Title.equals(that.Title)) return false;
+        if (!Year.equals(that.Year)) return false;
+        if (Rated != null ? !Rated.equals(that.Rated) : that.Rated != null) return false;
+        if (Released != null ? !Released.equals(that.Released) : that.Released != null) return false;
+        if (Runtime != null ? !Runtime.equals(that.Runtime) : that.Runtime != null) return false;
+        if (Genre != null ? !Genre.equals(that.Genre) : that.Genre != null) return false;
+        if (Director != null ? !Director.equals(that.Director) : that.Director != null) return false;
+        if (Writer != null ? !Writer.equals(that.Writer) : that.Writer != null) return false;
+        if (Actors != null ? !Actors.equals(that.Actors) : that.Actors != null) return false;
+        if (Plot != null ? !Plot.equals(that.Plot) : that.Plot != null) return false;
+        if (Poster != null ? !Poster.equals(that.Poster) : that.Poster != null) return false;
+        if (!imdbID.equals(that.imdbID)) return false;
+        return Type.equals(that.Type);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Title.hashCode();
+        result = 31 * result + Year.hashCode();
+        result = 31 * result + (Rated != null ? Rated.hashCode() : 0);
+        result = 31 * result + (Released != null ? Released.hashCode() : 0);
+        result = 31 * result + (Runtime != null ? Runtime.hashCode() : 0);
+        result = 31 * result + (Genre != null ? Genre.hashCode() : 0);
+        result = 31 * result + (Director != null ? Director.hashCode() : 0);
+        result = 31 * result + (Writer != null ? Writer.hashCode() : 0);
+        result = 31 * result + (Actors != null ? Actors.hashCode() : 0);
+        result = 31 * result + (Plot != null ? Plot.hashCode() : 0);
+        result = 31 * result + (Poster != null ? Poster.hashCode() : 0);
+        result = 31 * result + imdbID.hashCode();
+        result = 31 * result + Type.hashCode();
+        return result;
+    }
 }
