@@ -23,10 +23,12 @@ public class SearchResultAdapter extends ArrayAdapter<TitleRecord> {
     private final Context context;
     private final ImageLoader imageLoader;
     private final Favorites favorites;
+    private final boolean shouldDeleteNonFavorites;
 
-    public SearchResultAdapter(Context context, List<TitleRecord> titleRecords) {
+    public SearchResultAdapter(Context context, List<TitleRecord> titleRecords, boolean shouldDeleteNonFavorites) {
         super(context, R.layout.list_item, titleRecords);
         this.context = context;
+        this.shouldDeleteNonFavorites = shouldDeleteNonFavorites;
         this.imageLoader = VolleySingleton.getInstance(context).getImageLoader();
         this.favorites = Favorites.getInstance(context);
     }
@@ -65,7 +67,7 @@ public class SearchResultAdapter extends ArrayAdapter<TitleRecord> {
         }
         boolean isFavorite = checkForFavorite(titleRecord);  // favorites might have changed with time
         holder.isFavorite = isFavorite;
-        holder.favoriteButton.setChecked(isFavorite);  // by default not favorite TODO: implementation of favorites
+        holder.favoriteButton.setChecked(isFavorite);
         holder.favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +77,10 @@ public class SearchResultAdapter extends ArrayAdapter<TitleRecord> {
                 } else {
                     favorites.deleteFavorite(holder.titleRecord.getImdbID());
                     holder.isFavorite = false;
+                    if (shouldDeleteNonFavorites) {
+                        // Used for Favorites Fragment where only Favorites are to be displayed. Non-Favorites would be removed
+                        SearchResultAdapter.this.remove(holder.titleRecord);
+                    }
                 }
             }
         });

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -40,7 +41,7 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.searchResultAdapter = new SearchResultAdapter(getContext(), new ArrayList<TitleRecord>());
+        this.searchResultAdapter = new SearchResultAdapter(getContext(), new ArrayList<TitleRecord>(), false);
 
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
         this.searchText = (EditText) rootView.findViewById(R.id.search_bar);
@@ -65,6 +66,14 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // TODO : Implement a custom Dialog to display contents of this item
+                displayItem(SearchFragment.this.searchResultAdapter.getItem(position));
+            }
+        });
+
         this.searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +89,10 @@ public class SearchFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    private void displayItem(TitleRecord item) {
+        // TODO : Implement a custom Dialog to display contents of this item
     }
 
     @Override
