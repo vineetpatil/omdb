@@ -2,6 +2,7 @@ package com.example.vineetpatil.moviesearch;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class FavoriteFragment extends Fragment {
         this.searchButton.setVisibility(View.GONE);
         this.listView = (ListView) rootView.findViewById(R.id.list_view);
         this.listView.setAdapter(searchResultAdapter);
+        getAllFavorites();
 
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -54,12 +56,17 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Log.d(TAG, "onResume() called");
         getAllFavorites();
     }
 
     private void getAllFavorites() {
+        Log.d(TAG, "getAllFavorites() called");
         List<TitleRecord> titleRecords = favorites.getAllFavorites();
         if (titleRecords != null && !titleRecords.isEmpty()) {
+            for (TitleRecord titleRecord : titleRecords) {
+                Log.d(TAG, "getAllFavorites() titleRecord : " + titleRecord);
+            }
             this.searchResultAdapter.clear();
             this.searchResultAdapter.addAll(titleRecords);
         }

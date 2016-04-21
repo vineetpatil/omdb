@@ -55,16 +55,13 @@ public class SearchResultAdapter extends ArrayAdapter<TitleRecord> {
 
         // fill data
         final ViewHolder holder = (ViewHolder) rowView.getTag();
-        if (!titleRecord.equals(holder.titleRecord)) {
-            // Not the same records
-            if (isUrlValid(titleRecord.getPoster())) {
-                holder.poster.setImageUrl(titleRecord.getPoster(), imageLoader);
-            }
-            holder.title.setText(titleRecord.getTitle());
-            holder.director.setText(titleRecord.getDirector() + " (" + titleRecord.getYear() + ")");
-            holder.plot.setText(titleRecord.getPlot());
-            holder.titleRecord = titleRecord;
+        if (isUrlValid(titleRecord.getPoster())) {
+            holder.poster.setImageUrl(titleRecord.getPoster(), imageLoader);
         }
+        holder.title.setText(titleRecord.getTitle());
+        holder.director.setText(titleRecord.getDirector() + " (" + titleRecord.getYear() + ")");
+        holder.plot.setText(titleRecord.getPlot());
+        holder.titleRecord = titleRecord;
         boolean isFavorite = checkForFavorite(titleRecord);  // favorites might have changed with time
         holder.isFavorite = isFavorite;
         holder.favoriteButton.setChecked(isFavorite);

@@ -42,7 +42,8 @@ public class Favorites {
     public synchronized boolean putFavorite(String imdbID, TitleRecord titleRecord) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(imdbID, titleRecord.toString());
-        editor.apply();  // apply() is ASynchronous and updates inMemory copy immediately and asynchronously updates disk copy
+        //editor.apply();  // apply() is ASynchronous and updates inMemory copy immediately and asynchronously updates disk copy
+        editor.commit();
 
         return true;
     }
@@ -50,7 +51,8 @@ public class Favorites {
     public synchronized boolean deleteFavorite(String imdbID) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove(imdbID);
-        editor.apply();  // apply() is ASynchronous and updates inMemory copy immediately and asynchronously updates disk copy
+        //editor.apply();  // apply() is ASynchronous and updates inMemory copy immediately and asynchronously updates disk copy
+        editor.commit();
 
         return true;
     }
@@ -75,7 +77,8 @@ public class Favorites {
             for (TitleRecord titleRecord : titleRecords) {
                 editor.putString(titleRecord.getImdbID(), titleRecord.toString());
             }
-            editor.apply();  // apply() is ASynchronous and updates inMemory copy immediately and asynchronously updates disk copy
+            //editor.apply();  // apply() is ASynchronous and updates inMemory copy immediately and asynchronously updates disk copy
+            editor.commit();
 
             return true;
         }
@@ -85,7 +88,8 @@ public class Favorites {
     public synchronized boolean deleteAllFavorites() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
-        editor.apply();  // apply() is ASynchronous and updates inMemory copy immediately and asynchronously updates disk copy
+        //editor.apply();  // apply() is ASynchronous and updates inMemory copy immediately and asynchronously updates disk copy
+        editor.commit();
 
         return true;
     }
