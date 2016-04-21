@@ -43,6 +43,21 @@ public class SearchActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {}
+
+            @Override
+            public void onPageSelected(int i) {
+                if (i == 1) {
+                    // Favorites tab, update favorites
+                    favoriteFragment.getAllFavorites();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {}
+        });
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
@@ -66,7 +81,6 @@ public class SearchActivity extends AppCompatActivity {
             if (position == 0) {
                 return searchFragment;
             } else {
-                favoriteFragment.getAllFavorites();
                 return favoriteFragment;
             }
         }
