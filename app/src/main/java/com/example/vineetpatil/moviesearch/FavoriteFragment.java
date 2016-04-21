@@ -53,22 +53,17 @@ public class FavoriteFragment extends Fragment {
         // TODO : Implement a custom Dialog to display contents of this item
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume() called");
-        getAllFavorites();
-    }
-
-    private void getAllFavorites() {
+    public void getAllFavorites() {
         Log.d(TAG, "getAllFavorites() called");
-        List<TitleRecord> titleRecords = favorites.getAllFavorites();
-        if (titleRecords != null && !titleRecords.isEmpty()) {
-            for (TitleRecord titleRecord : titleRecords) {
-                Log.d(TAG, "getAllFavorites() titleRecord : " + titleRecord);
+        if (favorites != null) {
+            List<TitleRecord> titleRecords = favorites.getAllFavorites();
+            if (titleRecords != null && !titleRecords.isEmpty()) {
+                for (TitleRecord titleRecord : titleRecords) {
+                    Log.d(TAG, "getAllFavorites() titleRecord : " + titleRecord);
+                }
+                this.searchResultAdapter.clear();
+                this.searchResultAdapter.addAll(titleRecords);
             }
-            this.searchResultAdapter.clear();
-            this.searchResultAdapter.addAll(titleRecords);
         }
     }
 }

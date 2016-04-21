@@ -66,6 +66,7 @@ public class SearchActivity extends AppCompatActivity {
             if (position == 0) {
                 return searchFragment;
             } else {
+                favoriteFragment.getAllFavorites();
                 return favoriteFragment;
             }
         }
