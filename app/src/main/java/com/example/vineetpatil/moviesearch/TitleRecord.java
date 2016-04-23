@@ -27,7 +27,13 @@ public class TitleRecord {
     private String Writer;
     private String Actors;
     private String Plot;
+    private String Language;
+    private String Country;
+    private String Awards;
     private String Poster;
+    private String Metascore;
+    private String imdbRating;
+    private String imdbVotes;
     @NonNull private String imdbID;
     @NonNull private String Type;
 
@@ -44,7 +50,7 @@ public class TitleRecord {
     }
 
     public void setTitle(@NonNull String title) {
-        this.Title = title;
+        Title = title;
     }
 
     @NonNull
@@ -53,7 +59,7 @@ public class TitleRecord {
     }
 
     public void setYear(@NonNull String year) {
-        this.Year = year;
+        Year = year;
     }
 
     public String getRated() {
@@ -61,7 +67,7 @@ public class TitleRecord {
     }
 
     public void setRated(String rated) {
-        this.Rated = rated;
+        Rated = rated;
     }
 
     public String getReleased() {
@@ -69,7 +75,7 @@ public class TitleRecord {
     }
 
     public void setReleased(String released) {
-        this.Released = released;
+        Released = released;
     }
 
     public String getRuntime() {
@@ -77,7 +83,7 @@ public class TitleRecord {
     }
 
     public void setRuntime(String runtime) {
-        this.Runtime = runtime;
+        Runtime = runtime;
     }
 
     public String getGenre() {
@@ -85,7 +91,7 @@ public class TitleRecord {
     }
 
     public void setGenre(String genre) {
-        this.Genre = genre;
+        Genre = genre;
     }
 
     public String getDirector() {
@@ -93,7 +99,7 @@ public class TitleRecord {
     }
 
     public void setDirector(String director) {
-        this.Director = director;
+        Director = director;
     }
 
     public String getWriter() {
@@ -101,7 +107,7 @@ public class TitleRecord {
     }
 
     public void setWriter(String writer) {
-        this.Writer = writer;
+        Writer = writer;
     }
 
     public String getActors() {
@@ -109,7 +115,7 @@ public class TitleRecord {
     }
 
     public void setActors(String actors) {
-        this.Actors = actors;
+        Actors = actors;
     }
 
     public String getPlot() {
@@ -117,7 +123,31 @@ public class TitleRecord {
     }
 
     public void setPlot(String plot) {
-        this.Plot = plot;
+        Plot = plot;
+    }
+
+    public String getLanguage() {
+        return Language;
+    }
+
+    public void setLanguage(String language) {
+        Language = language;
+    }
+
+    public String getCountry() {
+        return Country;
+    }
+
+    public void setCountry(String country) {
+        Country = country;
+    }
+
+    public String getAwards() {
+        return Awards;
+    }
+
+    public void setAwards(String awards) {
+        Awards = awards;
     }
 
     public String getPoster() {
@@ -125,7 +155,31 @@ public class TitleRecord {
     }
 
     public void setPoster(String poster) {
-        this.Poster = poster;
+        Poster = poster;
+    }
+
+    public String getMetascore() {
+        return Metascore;
+    }
+
+    public void setMetascore(String metascore) {
+        Metascore = metascore;
+    }
+
+    public String getImdbRating() {
+        return imdbRating;
+    }
+
+    public void setImdbRating(String imdbRating) {
+        this.imdbRating = imdbRating;
+    }
+
+    public String getImdbVotes() {
+        return imdbVotes;
+    }
+
+    public void setImdbVotes(String imdbVotes) {
+        this.imdbVotes = imdbVotes;
     }
 
     @NonNull
@@ -143,7 +197,7 @@ public class TitleRecord {
     }
 
     public void setType(@NonNull String type) {
-        this.Type = type;
+        Type = type;
     }
 
     @Override
@@ -172,7 +226,13 @@ public class TitleRecord {
         if (Writer != null ? !Writer.equals(that.Writer) : that.Writer != null) return false;
         if (Actors != null ? !Actors.equals(that.Actors) : that.Actors != null) return false;
         if (Plot != null ? !Plot.equals(that.Plot) : that.Plot != null) return false;
+        if (Language != null ? !Language.equals(that.Language) : that.Language != null) return false;
+        if (Country != null ? !Country.equals(that.Country) : that.Country != null) return false;
+        if (Awards != null ? !Awards.equals(that.Awards) : that.Awards != null) return false;
         if (Poster != null ? !Poster.equals(that.Poster) : that.Poster != null) return false;
+        if (Metascore != null ? !Metascore.equals(that.Metascore) : that.Metascore != null) return false;
+        if (imdbRating != null ? !imdbRating.equals(that.imdbRating) : that.imdbRating != null) return false;
+        if (imdbVotes != null ? !imdbVotes.equals(that.imdbVotes) : that.imdbVotes != null) return false;
         if (!imdbID.equals(that.imdbID)) return false;
         return Type.equals(that.Type);
 
@@ -190,7 +250,13 @@ public class TitleRecord {
         result = 31 * result + (Writer != null ? Writer.hashCode() : 0);
         result = 31 * result + (Actors != null ? Actors.hashCode() : 0);
         result = 31 * result + (Plot != null ? Plot.hashCode() : 0);
+        result = 31 * result + (Language != null ? Language.hashCode() : 0);
+        result = 31 * result + (Country != null ? Country.hashCode() : 0);
+        result = 31 * result + (Awards != null ? Awards.hashCode() : 0);
         result = 31 * result + (Poster != null ? Poster.hashCode() : 0);
+        result = 31 * result + (Metascore != null ? Metascore.hashCode() : 0);
+        result = 31 * result + (imdbRating != null ? imdbRating.hashCode() : 0);
+        result = 31 * result + (imdbVotes != null ? imdbVotes.hashCode() : 0);
         result = 31 * result + imdbID.hashCode();
         result = 31 * result + Type.hashCode();
         return result;

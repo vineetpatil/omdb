@@ -69,8 +69,7 @@ public class SearchFragment extends Fragment {
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO : Implement a custom Dialog to display contents of this item
-                displayItem(SearchFragment.this.searchResultAdapter.getItem(position));
+                DisplayUtil.displayItem(SearchFragment.this.searchResultAdapter.getItem(position), SearchFragment.this.getActivity());
             }
         });
 
@@ -89,10 +88,6 @@ public class SearchFragment extends Fragment {
         });
 
         return rootView;
-    }
-
-    private void displayItem(TitleRecord item) {
-        // TODO : Implement a custom Dialog to display contents of this item
     }
 
     @Override

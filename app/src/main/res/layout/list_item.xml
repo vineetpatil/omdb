@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_margin="5dp"
+                android:descendantFocusability="blocksDescendants"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/poster"
@@ -23,6 +24,9 @@
         android:textColor="@color/material_blue_grey_800"
         android:padding="3dp"
         android:background="@drawable/toggle_button_selector"
+        android:clickable="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:textOff="@string/unfavorite"
         android:textOn="@string/favorite"/>
 
@@ -31,29 +35,29 @@
         android:lines="1"
         android:layout_toRightOf="@id/poster"
         android:textSize="16sp"
-        android:hint="Title"
+        android:hint="@string/title_hint"
         android:maxWidth="240dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/director"
+        android:id="@+id/director_year"
         android:lines="1"
         android:layout_toRightOf="@id/poster"
         android:layout_below="@id/title"
         android:textSize="16sp"
-        android:hint="Director (Year)"
+        android:hint="@string/director_year_hint"
         android:maxWidth="240dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/plot"
-        android:lines="3"
+        android:maxLines="3"
         android:layout_toRightOf="@id/poster"
-        android:layout_below="@id/director"
+        android:layout_below="@id/director_year"
         android:textSize="16sp"
-        android:hint="Plot Summary"
+        android:hint="@string/plot_summary_hint"
         android:ellipsize="end"
         android:maxWidth="240dp"
         android:layout_width="wrap_content"

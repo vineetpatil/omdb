@@ -2,7 +2,6 @@ package com.example.vineetpatil.moviesearch;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +46,7 @@ public class SearchResultAdapter extends ArrayAdapter<TitleRecord> {
             viewHolder.poster = (NetworkImageView) rowView.findViewById(R.id.poster);
             viewHolder.favoriteButton = (ToggleButton) rowView.findViewById(R.id.favorite_button);
             viewHolder.title = (TextView) rowView.findViewById(R.id.title);
-            viewHolder.director = (TextView) rowView.findViewById(R.id.director);
+            viewHolder.director_year = (TextView) rowView.findViewById(R.id.director_year);
             viewHolder.plot = (TextView) rowView.findViewById(R.id.plot);
             viewHolder.titleRecord = titleRecord;
             rowView.setTag(viewHolder);
@@ -59,7 +58,7 @@ public class SearchResultAdapter extends ArrayAdapter<TitleRecord> {
             holder.poster.setImageUrl(titleRecord.getPoster(), imageLoader);
         }
         holder.title.setText(titleRecord.getTitle());
-        holder.director.setText(titleRecord.getDirector() + " (" + titleRecord.getYear() + ")");
+        holder.director_year.setText(titleRecord.getDirector() + " (" + titleRecord.getYear() + ")");
         holder.plot.setText(titleRecord.getPlot());
         holder.titleRecord = titleRecord;
         boolean isFavorite = checkForFavorite(titleRecord);  // favorites might have changed with time
@@ -110,7 +109,7 @@ public class SearchResultAdapter extends ArrayAdapter<TitleRecord> {
         public NetworkImageView poster;
         public ToggleButton favoriteButton;
         public TextView title;
-        public TextView director;
+        public TextView director_year;
         public TextView plot;
         public boolean isFavorite = false;
         public TitleRecord titleRecord;
