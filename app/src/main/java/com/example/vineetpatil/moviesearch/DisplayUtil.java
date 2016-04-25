@@ -18,7 +18,7 @@ public class DisplayUtil {
     public static void displayItem(TitleRecord item, Context context) {
         // Implement a custom Dialog to display contents of this item
         final ImageLoader imageLoader = VolleySingleton.getInstance(context).getImageLoader();
-        final Dialog dialog = new Dialog(context);
+        final Dialog dialog = new Dialog(context, android.R.style.Theme_Light);
         dialog.setContentView(R.layout.item_display_dialog);
         dialog.setTitle(context.getString(R.string.item_detail_title));
 

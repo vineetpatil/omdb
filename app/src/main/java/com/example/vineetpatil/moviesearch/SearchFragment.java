@@ -17,6 +17,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
@@ -99,22 +101,32 @@ public class SearchFragment extends Fragment {
 
     private void search(String searchQuery, int pageNumber) {
         //  query OMDB for search results
-        String url = String.format(searchUrl, searchQuery, pageNumber);
-        GsonRequest<SearchResponse> searchResponseGsonRequest = new GsonRequest<>(url, SearchResponse.class,
-                null, new SearchResultsListener(), new SearchResultsErrorListener());
-        searchResponseGsonRequest.setTag(TAG);
-        requestQueue.add(searchResponseGsonRequest);
-        loadingData = true;
+        try {
+            searchQuery = URLEncoder.encode(searchQuery, "UTF-8");
+            String url = String.format(searchUrl, searchQuery, pageNumber);
+            GsonRequest<SearchResponse> searchResponseGsonRequest = new GsonRequest<>(url, SearchResponse.class,
+                    null, new SearchResultsListener(), new SearchResultsErrorListener());
+            searchResponseGsonRequest.setTag(TAG);
+            requestQueue.add(searchResponseGsonRequest);
+            loadingData = true;
+        } catch (UnsupportedEncodingException e) {
+            Log.e(TAG, "Unable to URL encode search query : " + searchQuery, e);
+        }
     }
 
     private void getDetails(String imdbID) {
         // query OMDB to get details of this title
-        String url = String.format(detailsUrl, imdbID);
-        GsonRequest<TitleRecord> titleRecordGsonRequest = new GsonRequest<>(url, TitleRecord.class,
-                null, new TitleRecordListener(), new TitleRecordErrorListener());
-        // Set TAG to this request so that this can be cancelled when not required.
-        titleRecordGsonRequest.setTag(TAG);
-        requestQueue.add(titleRecordGsonRequest);
+        try {
+            imdbID = URLEncoder.encode(imdbID, "UTF-8");
+            String url = String.format(detailsUrl, imdbID);
+            GsonRequest<TitleRecord> titleRecordGsonRequest = new GsonRequest<>(url, TitleRecord.class,
+                    null, new TitleRecordListener(), new TitleRecordErrorListener());
+            // Set TAG to this request so that this can be cancelled when not required.
+            titleRecordGsonRequest.setTag(TAG);
+            requestQueue.add(titleRecordGsonRequest);
+        } catch (UnsupportedEncodingException e) {
+            Log.e(TAG, "Unable to URL encode search query imdbID : " + imdbID, e);
+        }
     }
 
     private synchronized void addTitleRecord(final TitleRecord titleRecord) {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
+              android:padding="10dp"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
@@ -38,46 +39,51 @@
 
             <TextView
                     android:id="@+id/title"
-                    android:lines="1"
+                    android:lines="2"
                     android:textSize="16sp"
                     android:hint="@string/title_hint"
                     android:ellipsize="end"
+                    android:padding="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
             <TextView
                     android:id="@+id/director_year"
-                    android:lines="1"
+                    android:lines="2"
                     android:textSize="16sp"
                     android:hint="@string/director_year_hint"
                     android:ellipsize="end"
+                    android:padding="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
             <TextView
                     android:id="@+id/writer"
-                    android:lines="1"
+                    android:lines="2"
                     android:textSize="16sp"
                     android:hint="@string/writer_hint"
                     android:ellipsize="end"
+                    android:padding="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
             <TextView
                     android:id="@+id/actors"
-                    android:maxLines="2"
+                    android:maxLines="3"
                     android:textSize="16sp"
                     android:hint="@string/actors_hint"
                     android:ellipsize="end"
+                    android:padding="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
             <TextView
                     android:id="@+id/rated_released_runtime_genre"
-                    android:maxLines="2"
+                    android:maxLines="3"
                     android:textSize="12sp"
                     android:hint="@string/rated_released_runtime_genre_hint"
                     android:ellipsize="end"
+                    android:padding="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -87,24 +93,27 @@
                     android:textSize="16sp"
                     android:hint="@string/plot_summary_hint"
                     android:ellipsize="end"
+                    android:padding="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
             <TextView
                     android:id="@+id/language_country_metascore_imdbrating"
-                    android:maxLines="2"
+                    android:maxLines="3"
                     android:textSize="12sp"
                     android:hint="@string/language_country_metascore_imdbrating_hint"
                     android:ellipsize="end"
+                    android:padding="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
             <TextView
                     android:id="@+id/awards"
-                    android:maxLines="2"
+                    android:maxLines="3"
                     android:textSize="14sp"
                     android:hint="@string/awards_hint"
                     android:ellipsize="end"
+                    android:padding="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -116,6 +125,7 @@
             android:id="@+id/dismiss_button"
             android:background="@android:color/transparent"
             android:text="@string/dismiss"
+            android:padding="5dp"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
