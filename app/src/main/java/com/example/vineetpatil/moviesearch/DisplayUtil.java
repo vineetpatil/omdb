@@ -15,9 +15,10 @@ import java.net.URL;
 
 public class DisplayUtil {
 
-    public static void displayItem(TitleRecord item, Context context) {
+    public static void displayItem(final TitleRecord item, Context context) {
         // Implement a custom Dialog to display contents of this item
         final ImageLoader imageLoader = VolleySingleton.getInstance(context).getImageLoader();
+        final Favorites favorites = Favorites.getInstance(context);
         final Dialog dialog = new Dialog(context, android.R.style.Theme_Light);
         dialog.setContentView(R.layout.item_display_dialog);
         dialog.setTitle(context.getString(R.string.item_detail_title));
@@ -47,6 +48,16 @@ public class DisplayUtil {
         }
         final ToggleButton favoriteButton = (ToggleButton) dialog.findViewById(R.id.favorite_button);
         favoriteButton.setChecked(checkForFavorite(item, context));
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (favoriteButton.isChecked()) {
+                    favorites.putFavorite(item.getImdbID(), item);
+                } else {
+                    favorites.deleteFavorite(item.getImdbID());
+                }
+            }
+        });
         final TextView titleTextView = (TextView) dialog.findViewById(R.id.title);
         titleTextView.setText(movieTitle);
         final TextView directorYearTextView = (TextView) dialog.findViewById(R.id.director_year);

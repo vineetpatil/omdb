@@ -1,133 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:padding="10dp"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <com.android.volley.toolbox.NetworkImageView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/poster"
-            android:layout_gravity="center_horizontal"
-            android:padding="5dp"
             android:layout_width="144dp"
-            android:layout_height="144dp"/>
-
-    <ToggleButton
-            android:id="@+id/favorite_button"
+            android:layout_height="144dp"
             android:layout_gravity="center_horizontal"
+            android:padding="5dp" />
+
+        <ToggleButton
+            android:id="@+id/favorite_button"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:textSize="6sp"
-            android:textColor="@color/material_blue_grey_800"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/toggle_button_selector"
+            android:clickable="true"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:clickable="false"
             android:padding="4dp"
-            android:background="@drawable/toggle_button_selector"
+            android:textColor="@color/material_blue_grey_800"
             android:textOff="@string/unfavorite"
-            android:textOn="@string/favorite"/>
+            android:textOn="@string/favorite"
+            android:textSize="6sp" />
 
-
-    <ScrollView
+        <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:hint="@string/title_hint"
+            android:maxLines="2"
+            android:padding="2dp"
+            android:textSize="16sp" />
 
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/director_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:hint="@string/director_year_hint"
+            android:maxLines="2"
+            android:padding="2dp"
+            android:textSize="16sp" />
 
-            <TextView
-                    android:id="@+id/title"
-                    android:lines="2"
-                    android:textSize="16sp"
-                    android:hint="@string/title_hint"
-                    android:ellipsize="end"
-                    android:padding="2dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/writer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:hint="@string/writer_hint"
+            android:maxLines="2"
+            android:padding="2dp"
+            android:textSize="16sp" />
 
-            <TextView
-                    android:id="@+id/director_year"
-                    android:lines="2"
-                    android:textSize="16sp"
-                    android:hint="@string/director_year_hint"
-                    android:ellipsize="end"
-                    android:padding="2dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/actors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:hint="@string/actors_hint"
+            android:maxLines="3"
+            android:padding="2dp"
+            android:textSize="16sp" />
 
-            <TextView
-                    android:id="@+id/writer"
-                    android:lines="2"
-                    android:textSize="16sp"
-                    android:hint="@string/writer_hint"
-                    android:ellipsize="end"
-                    android:padding="2dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/rated_released_runtime_genre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:hint="@string/rated_released_runtime_genre_hint"
+            android:maxLines="3"
+            android:padding="2dp"
+            android:textSize="12sp" />
 
-            <TextView
-                    android:id="@+id/actors"
-                    android:maxLines="3"
-                    android:textSize="16sp"
-                    android:hint="@string/actors_hint"
-                    android:ellipsize="end"
-                    android:padding="2dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/plot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:hint="@string/plot_summary_hint"
+            android:maxLines="6"
+            android:padding="2dp"
+            android:textSize="16sp" />
 
-            <TextView
-                    android:id="@+id/rated_released_runtime_genre"
-                    android:maxLines="3"
-                    android:textSize="12sp"
-                    android:hint="@string/rated_released_runtime_genre_hint"
-                    android:ellipsize="end"
-                    android:padding="2dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/language_country_metascore_imdbrating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:hint="@string/language_country_metascore_imdbrating_hint"
+            android:maxLines="3"
+            android:padding="2dp"
+            android:textSize="12sp" />
 
-            <TextView
-                    android:id="@+id/plot"
-                    android:maxLines="6"
-                    android:textSize="16sp"
-                    android:hint="@string/plot_summary_hint"
-                    android:ellipsize="end"
-                    android:padding="2dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/awards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:hint="@string/awards_hint"
+            android:maxLines="3"
+            android:padding="2dp"
+            android:textSize="14sp" />
 
-            <TextView
-                    android:id="@+id/language_country_metascore_imdbrating"
-                    android:maxLines="3"
-                    android:textSize="12sp"
-                    android:hint="@string/language_country_metascore_imdbrating_hint"
-                    android:ellipsize="end"
-                    android:padding="2dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            <TextView
-                    android:id="@+id/awards"
-                    android:maxLines="3"
-                    android:textSize="14sp"
-                    android:hint="@string/awards_hint"
-                    android:ellipsize="end"
-                    android:padding="2dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-    <Button
+        <Button
             android:id="@+id/dismiss_button"
-            android:background="@android:color/transparent"
-            android:text="@string/dismiss"
-            android:padding="5dp"
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
+            android:text="@string/dismiss" />
 
-</LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
